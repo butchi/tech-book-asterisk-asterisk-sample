@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Markdown変換器 (Markdown-it)</title>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"
+  />
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="title">Markdown変換器 (Markdown-it)</h1>
+    <div class="columns">
+      <div class="column is-half">
+        <textarea
+          id="markdown-input"
+          class="textarea"
+        >ここに **Markdownテキスト** を入力してください...</textarea>
+        <button
+          id="convert-button"
+          class="button is-primary mt-2"
+        >変換</button>
+      </div>
+      <div class="column is-half">
+        <h2 class="subtitle">プレビュー</h2>
+        <div id="preview" class="box"></div>
+        <h2 class="subtitle mt-4">HTML出力</h2>
+        <pre id="html-output" class="box"></pre>
+      </div>
+    </div>
+  </div>
+  <script type="module">
+    import
+      markdownIt
+    from 'https://cdn.jsdelivr.net/npm/markdown-it@14.1.1/+esm';
+    const md = markdownIt();
+
+    document.getElementById('convert-button').addEventListener('click', () => {
+      const markdownText = document.getElementById('markdown-input').value;
+      const html = md.render(markdownText);
+      document.getElementById('preview').innerHTML = html;
+      document.getElementById('html-output').textContent = html;
+    });
+  </script>
+</body>
+</html>
